@@ -68,3 +68,8 @@ solr:
     volumes:
       - "/home/solr:/opt/solr/server/solr"
 
+tika:
+  image: nodextechnology/tika:latest
+  restart: always
+  ports:
+    - "127.0.0.1:9998:9998"
