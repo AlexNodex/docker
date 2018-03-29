@@ -2,11 +2,11 @@ FROM ubuntu:16.04
 
 MAINTAINER Alex McAuley "alex@nodex.co.uk"
 
-ENV TIKA_VERSION 1.13
+ENV TIKA_VERSION 1.17
 ENV TIKA_SERVER_URL https://www.apache.org/dist/tika/tika-server-$TIKA_VERSION.jar
 
 RUN	apt-get update \
-	&& apt-get install openjdk-8-jre-headless get curl gdal-bin tesseract-ocr \
+	&& apt-get install openjdk-8-jre-headless wget curl gdal-bin tesseract-ocr \
 		tesseract-ocr-eng tesseract-ocr-ita tesseract-ocr-fra tesseract-ocr-spa tesseract-ocr-deu -y \
 	&& curl -sSL https://people.apache.org/keys/group/tika.asc -o /tmp/tika.asc \
 	&& gpg --import /tmp/tika.asc \
