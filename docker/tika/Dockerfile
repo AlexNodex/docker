@@ -1,12 +1,9 @@
-FROM ubuntu:16.04
-
-MAINTAINER Alex McAuley "alex@nodex.co.uk"
-
+FROM ubuntu:latest
+MAINTAINER alex@nodex.co.uk
 ENV TIKA_VERSION 1.17
 ENV TIKA_SERVER_URL https://www.apache.org/dist/tika/tika-server-$TIKA_VERSION.jar
-
 RUN	apt-get update \
-	&& apt-get install openjdk-8-jre-headless wget curl gdal-bin tesseract-ocr \
+	&& apt-get install openjdk-8-jre-headless curl gdal-bin tesseract-ocr \
 		tesseract-ocr-eng tesseract-ocr-ita tesseract-ocr-fra tesseract-ocr-spa tesseract-ocr-deu -y \
 	&& curl -sSL https://people.apache.org/keys/group/tika.asc -o /tmp/tika.asc \
 	&& gpg --import /tmp/tika.asc \
@@ -15,9 +12,6 @@ RUN	apt-get update \
 		| awk '/"path_info": / { pi=$2; }; /"preferred":/ { pref=$2; }; END { print pref " " pi; };' \
 		| sed -r -e 's/^"//; s/",$//; s/" "//') \
 	&& echo "Nearest mirror: $NEAREST_TIKA_SERVER_URL" \
-	&& curl -sSL "$NEAREST_TIKA_SERVER_URL" -o /opt/tika.jar \
-	&& gpg --verify /tmp/tika-server-${TIKA_VERSION}.jar.asc /opt/tika.jar \
+	&& curl -sSL "$NEAREST_TIKA_SERVER_URL" -o /tika-server-${TIKA_VERSION}.jar \
 	&& apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-EXPOSE 9998
-CMD [ "/usr/bin/java", "-jar", "/opt/tika.jar", "-h 0.0.0.0"]
+EXPOSE 9998 ENTRYPOINT java -jar /tika-server-${TIKA_VERSION}.jar -h 0.0.0.0
