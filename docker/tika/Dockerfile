@@ -14,4 +14,5 @@ RUN	apt-get update \
 	&& echo "Nearest mirror: $NEAREST_TIKA_SERVER_URL" \
 	&& curl -sSL "$NEAREST_TIKA_SERVER_URL" -o /tika-server-${TIKA_VERSION}.jar \
 	&& apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-EXPOSE 9998 ENTRYPOINT java -jar /tika-server-${TIKA_VERSION}.jar -h 0.0.0.0
+EXPOSE 9998
+ENTRYPOINT java -jar /tika-server-${TIKA_VERSION}.jar -h 0.0.0.0
