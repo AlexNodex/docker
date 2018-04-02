@@ -88,7 +88,7 @@ COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN chown mongodb:mongodb /usr/local/bin/docker-entrypoint.sh
 
-ENTRYPOINT ["/usr/local/bin/","docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 27017
 CMD ["mongod"]

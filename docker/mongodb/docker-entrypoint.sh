@@ -1,5 +1,4 @@
 #!/bin/bash
-#props to 10gen!
 set -Eeuo pipefail
 
 if [ "${1:0:1}" = '-' ]; then
