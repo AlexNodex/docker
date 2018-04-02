@@ -75,9 +75,9 @@ tika:
     - "127.0.0.1:9998:9998"
 
 mongodb:
-  image: sameersbn/mongodb:latest
+  image: nodextechnology/mongodb:3.6
   ports:
     - "127.0.0.1:27017:27017"
   volumes:
-    - /home/mongodb:/var/lib/mongodb
+    - /home/mongodb:/data/db
   restart: always
