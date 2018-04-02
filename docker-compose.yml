@@ -73,3 +73,11 @@ tika:
   restart: always
   ports:
     - "127.0.0.1:9998:9998"
+
+mongodb:
+  image: sameersbn/mongodb:latest
+  ports:
+    - "127.0.0.1:27017:27017"
+  volumes:
+    - /home/mongodb:/var/lib/mongodb
+restart: always
