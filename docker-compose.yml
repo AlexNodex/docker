@@ -83,7 +83,7 @@ mongodb:
   restart: always
 
 elasticsearch_9200:
-    image: elasticsearch:2.4.6-alpine
+    image: nodextechnology/elasticsearch:1.7.6
     command: "elasticsearch -Des.cluster.name=general"
     environment:
        - ES_HEAP_SIZE=8g
@@ -91,5 +91,5 @@ elasticsearch_9200:
       - "127.0.0.1:9200:9200"
       - "127.0.0.1:9300:9300"
     volumes:
-      - "/home/elasticsearch:/usr/share/elasticsearch/data"
+      - "/home/elasticsearch/legacy_9200:/usr/share/elasticsearch/data"
     restart: always
