@@ -1,5 +1,5 @@
 FROM debian:jessie-slim
-
+MAINTAINER Alex McAuley "alex@nodex.co.uk"
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r mongodb && useradd -r -g mongodb mongodb
 
