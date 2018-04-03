@@ -26,7 +26,7 @@ RUN apk-install -t build-deps wget ca-certificates \
   && rm -rf /tmp/* \
   && apk del --purge build-deps
 
-COPY elasticsearc.yml /usr/share/elasticsearch/config
+COPY elasticsearch.yml /usr/share/elasticsearch/config
 COPY docker-entrypoint.sh /
 
 ENV PATH /usr/share/elasticsearch/bin:$PATH
