@@ -82,7 +82,7 @@ mongodb:
     - /home/mongodb:/data/db
   restart: always
 
-elasticserach_9200:
+elasticsearch_9200:
     image: elasticsearch:2.4.6-alpine
     command: "elasticsearch -Des.cluster.name=general"
     environment:
