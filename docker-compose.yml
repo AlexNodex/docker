@@ -81,3 +81,13 @@ mongodb:
   volumes:
     - /home/mongodb:/data/db
   restart: always
+
+elasticserach_9200:
+    image: elasticsearch:2.4.6-alpine
+    command: "elasticsearch -Des.cluster.name=general"
+    environment:
+       - ES_HEAP_SIZE=8g
+    ports:
+      - "127.0.0.1:9200:9200"
+      - "127.0.0.1:9300:9300"
+    restart: always
