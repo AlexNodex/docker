@@ -14,6 +14,7 @@ RUN apk-install -t build-deps wget ca-certificates \
   && adduser -DH -s /sbin/nologin elasticsearch \
 	&& echo "Creating Elasticsearch Paths..." \
 	&& for path in \
+    /usr/share/elasticsearch/snapshots \
 		/usr/share/elasticsearch/data \
 		/usr/share/elasticsearch/logs \
 		/usr/share/elasticsearch/config \

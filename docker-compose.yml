@@ -1,6 +1,8 @@
 location_master:
     image: elasticsearch:2.4-alpine
     command: "elasticsearch -Des.cluster.name=locations -Des.node.master=true -Des.node.data=false"
+    volumes:
+      - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
     environment:
        - ES_HEAP_SIZE=24g
     ports:
@@ -91,5 +93,6 @@ elasticsearch_9200:
       - "127.0.0.1:9200:9200"
       - "127.0.0.1:9300:9300"
     volumes:
-      - "/home/elasticsearch/legacy_9200:/usr/share/elasticsearch/data"
+      - "/home/elasticsearch/legacy_9200:/usr/share/elasticsearch/data",
+      - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
     restart: always
