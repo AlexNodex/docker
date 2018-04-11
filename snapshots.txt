@@ -1,0 +1,17 @@
+curl -XPUT 'http://localhost:9200/_snapshot/legacy_backup' -d '{
+    "type": "fs",
+    "settings": {
+        "location": "/storage/elasticsearch/9200/snapshots",
+        "compress": true
+    }
+}'
+
+
+
+curl -XPUT 'http://localhost:9200/_snapshot/legacy_backup' -d '{
+    "type": "fs",
+    "settings": {
+        "location": "/usr/share/elasticsearch/snapshots/legacy_backup",
+        "compress": true
+    }
+}'
