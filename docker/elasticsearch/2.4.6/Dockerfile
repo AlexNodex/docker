@@ -73,8 +73,8 @@ COPY config ./config
 
 VOLUME /usr/share/elasticsearch/data
 
-COPY config/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
-COPY config/logging.yml /usr/share/elasticsearch/config/logging.yml
+#COPY config/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
+#COPY config/logging.yml /usr/share/elasticsearch/config/logging.yml
 
 COPY docker-entrypoint.sh /
 
