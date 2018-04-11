@@ -148,23 +148,33 @@ recruitment2:
     restart: always
 
 solr:
+    container_name: solr
     image: nodextechnology/solr:5.1
     restart: always
+    environment:
+      - jetty.port=8080
+      - solr.solr.home=/opt/solr/server/solr
+      - user.timezone=UTC
+      - STOP.KEY=solrrocks
+      - STOP.PORT=7080
+      - solr.install.dir=/opt/solr/server
+      - log4j.configuration=file:/opt/solr/server/solr/log4j.properties
     ports:
       - "127.0.0.1:8983:8983"
       - "127.0.0.1:8080:8080"
-    command: "/usr/bin/java -Xms4g -Xmx4g  -Xloggc:/opt/solr/server/solr/logs/solr_gc.log
-  -Djetty.port=8080 -DSTOP.PORT=7080 -DSTOP.KEY=solrrocks -Duser.timezone=UTC -Dsolr.solr.home=/opt/solr/server/solr -Dsolr.install.dir=/opt/solr/server -Dlog4j.configuration=file:/opt/solr/server/solr/log4j.properties -jar /opt/solr/server/start.jar"
+    command: "/usr/bin/java -Xms4g -Xmx4g  -Xloggc:/opt/solr/server/solr/logs/solr_gc.log -jar /opt/solr/server/start.jar"
     volumes:
       - "/home/solr:/opt/solr/server/solr"
 
 tika:
+  container_name: tika
   image: nodextechnology/tika:latest
   restart: always
   ports:
     - "127.0.0.1:9998:9998"
 
 mongodb:
+  container_name: mongodb
   image: nodextechnology/mongodb:3.6
   ports:
     - "127.0.0.1:27017:27017"
@@ -173,6 +183,7 @@ mongodb:
   restart: always
 
 elasticsearch_9200:
+    container_name: elasicsearch_legacy
     image: nodextechnology/elasticsearch:1.7.6-alpine
     command: "elasticsearch"
     environment:
