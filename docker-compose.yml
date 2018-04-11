@@ -166,7 +166,7 @@ services:
         ports:
           - "127.0.0.1:8983:8983"
           - "127.0.0.1:8080:8080"
-        command: command: "/usr/bin/java -Xms4g -Xmx4g  -Xloggc:/opt/solr/server/solr/logs/solr_gc.log
+        command: "/usr/bin/java -Xms4g -Xmx4g  -Xloggc:/opt/solr/server/solr/logs/solr_gc.log
   -Djetty.port=8080 -DSTOP.PORT=7080 -DSTOP.KEY=solrrocks -Duser.timezone=UTC -Dsolr.solr.home=/opt/solr/server/solr -Dsolr.install.dir=/opt/solr/server -Dlog4j.configuration=file:/opt/solr/server/solr/log4j.properties -jar /opt/solr/server/start.jar"
         volumes:
           - "/home/solr:/opt/solr/server/solr"
