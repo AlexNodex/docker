@@ -1,6 +1,6 @@
 location_master:
     image: nodextechnology/elasticsearch:2.4.6-alpine
-    command: "elasticsearch -Des.cluster.name=locations -Des.node.master=true -Des.node.data=false -Des.path.repo=['/usr/share/elasticsearch/snapshots']"
+    command: "elasticsearch -Des.cluster.name=locations -Des.node.master=true -Des.node.data=false"
     volumes:
       - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
     environment:
@@ -86,7 +86,7 @@ mongodb:
 
 elasticsearch_9200:
     image: nodextechnology/elasticsearch:1.7.6
-    command: "elasticsearch -Des.cluster.name=general -Des.path.repo=['/usr/share/elasticsearch/snapshots']"
+    command: "elasticsearch -Des.cluster.name=general"
     environment:
        - ES_HEAP_SIZE=8g
     ports:
