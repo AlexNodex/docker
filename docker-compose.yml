@@ -17,7 +17,7 @@ services:
            - network.host=0.0.0.0
            - node.master=true
            - node.data=false
-           - cluster.name=locations
+           - es.cluster.name=locations
            - bootstrap.memory_lock=true
            - "ES_JAVA_OPTS=-Xms24g -Xmx24g"
            - path.repo=["/usr/share/elasticsearch/snapshots"]
