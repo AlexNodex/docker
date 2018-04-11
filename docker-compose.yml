@@ -143,7 +143,7 @@ recruitment2:
       - network.host=0.0.0.0
       - cluster.name=recruitment
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xm10g -Xm10g"
+      - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
       - discovery.zen.ping.unicast.hosts=recruitment
     restart: always
 
