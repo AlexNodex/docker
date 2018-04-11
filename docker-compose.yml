@@ -1,160 +1,178 @@
-version: "3"
-services:
-    locations:
-        image: nodextechnology/elasticsearch:2.4.6-alpine
-        container_name: locations
-        volumes:
-          - "/home/elasticsearch_snapshots/locations:/usr/share/elasticsearch/snapshots"
-        ulimits:
-            nofile:
-                soft: 65536
-                hard: 65536
-            memlock:
-                soft: -1
-                hard: -1
-        command: "elasticsearch -Des.cluster.name=locations -Des.node.master=true -Des.node.data=false -Des.path.repo=[\"/usr/share/elasticsearch/snapshots\"] -Des.http.max_content_length=1000mb -Des.script.engine.groovy.inline.aggs=on"
-        environment:
-           - ES_HEAP_SIZE=24g
-           - "ES_JAVA_OPTS=-Xms24g -Xmx24g"
-        ports:
-          - "127.0.0.1:19200:9200"
-          - "127.0.0.1:19300:9300"
-        restart: always
-    locations1:
-        command: "elasticsearch -Des.cluster.name=locations -Des.discovery.zen.ping.unicast.hosts=locations -Des.node.master=false -Des.node.data=true"
-        ulimits:
-            nofile:
-                soft: 65536
-                hard: 65536
-            memlock:
-                soft: -1
-                hard: -1
-        image: nodextechnology/elasticsearch:2.4.6-alpine
-        container_name: locations1
-        links:
-          - locations
-        volumes:
-          - "/home/elasticsearch:/usr/share/elasticsearch/data"
-        environment:
-             - ES_HEAP_SIZE=15g
-             - "ES_JAVA_OPTS=-Xms15g -Xmx15g"
-        restart: always
-    locations2:
-        command: "elasticsearch -Des.cluster.name=locations -Des.discovery.zen.ping.unicast.hosts=locations -Des.node.master=false -Des.node.data=true"
-        ulimits:
-            nofile:
-                soft: 65536
-                hard: 65536
-            memlock:
-                soft: -1
-                hard: -1
-        image: nodextechnology/elasticsearch:2.4.6-alpine
-        container_name: locations2
-        links:
-          - locations
-        volumes:
-          - "/home/elasticsearch:/usr/share/elasticsearch/data"
-        environment:
-             - ES_HEAP_SIZE=14g
-             - "ES_JAVA_OPTS=-Xms16g -Xmx14g"
-        restart: always
-    recruitment:
-        ulimits:
-            nofile:
-                soft: 65536
-                hard: 65536
-            memlock:
-                soft: -1
-                hard: -1
-        container_name: recruitment
-        image: nodextechnology/elasticsearch:2.4.6-alpine
-        command: "elasticsearch -Des.cluster.name=recruitment -Des.node.master=true -Des.node.data=false -Des.path.repo=[\"/usr/share/elasticsearch/snapshots\"] -Des.http.max_content_length=1000mb -Des.script.engine.groovy.inline.aggs=on"
-        volumes:
-            - "/home/elasticsearch_snapshots/recruitment:/usr/share/elasticsearch/snapshots"
-        environment:
-            - ES_HEAP_SIZE=10g
-            - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
-        ports:
-          - "127.0.0.1:18200:9200"
-          - "127.0.0.1:18300:9300"
-        restart: always
-    recruitment1:
-        container_name: recruitment1
-        ulimits:
-            nofile:
-                soft: 65536
-                hard: 65536
-            memlock:
-                soft: -1
-                hard: -1
-        image: nodextechnology/elasticsearch:2.4.6-alpine
-        command: "elasticsearch -Des.cluster.name=recruitment -Des.discovery.zen.ping.unicast.hosts=recruitment"
-        links:
-          - recruitment
-        volumes:
-          - "/home/elasticsearch:/usr/share/elasticsearch/data"
-        environment:
-          - ES_HEAP_SIZE=10g
-          - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
-        restart: always
-    recruitment2:
-        container_name: recruitment2
-        ulimits:
-            nofile:
-                soft: 65536
-                hard: 65536
-            memlock:
-                soft: -1
-                hard: -1
-        image: nodextechnology/elasticsearch:2.4.6-alpine
-        command: "elasticsearch -Des.cluster.name=recruitment -Des.discovery.zen.ping.unicast.hosts=recruitment"
-        links:
-          - recruitment
-        volumes:
-          - "/home/elasticsearch:/usr/share/elasticsearch/data"
-        environment:
-          - ES_HEAP_SIZE=10g
-          - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
-        restart: always
+location_master:
+    ulimits:
+        nofile:
+            soft: 65536
+            hard: 65536
+        memlock:
+            soft: -1
+            hard: -1
+    container_name: location_master
+    image: nodextechnology/elasticsearch:2.4.6-alpine
+    command: "elasticsearch -Des.cluster.name=locations -Des.node.master=true -Des.node.data=false"
+    volumes:
+      - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
+    environment:
+       - ES_HEAP_SIZE=16g
+    ports:
+      - "127.0.0.1:19200:9200"
+      - "127.0.0.1:19300:9300"
+    restart: always
+location_node_1:
+    ulimits:
+        nofile:
+            soft: 65536
+            hard: 65536
+        memlock:
+            soft: -1
+            hard: -1
+    container_name: location1
+    image: nodextechnology/elasticsearch:2.4.6-alpine
+    command: "elasticsearch -Des.cluster.name=locations -Des.discovery.zen.ping.unicast.hosts=location_master"
+    links:
+      - location_master
+    volumes:
+      - "/home/elasticsearch:/usr/share/elasticsearch/data"
+    environment:
+       - ES_HEAP_SIZE=16g
+    restart: always
+location_node_2:
+    ulimits:
+        nofile:
+            soft: 65536
+            hard: 65536
+        memlock:
+            soft: -1
+            hard: -1
+    container_name: location2
+    image: nodextechnology/elasticsearch:2.4.6-alpine
+    command: "elasticsearch -Des.cluster.name=locations -Des.discovery.zen.ping.unicast.hosts=location_master"
+    links:
+      - location_master
+    volumes:
+      - "/home/elasticsearch:/usr/share/elasticsearch/data"
+    environment:
+       - ES_HEAP_SIZE=16g
+    restart: always
+recruitment_master:
+    ulimits:
+        nofile:
+            soft: 65536
+            hard: 65536
+        memlock:
+            soft: -1
+            hard: -1
+    container_name: recruitment_master
+    image: nodextechnology/elasticsearch:2.4.6-alpine
+    command: "elasticsearch -Des.cluster.name=recruitment -Des.node.master=true -Des.node.data=false"
+    environment:
+       - ES_HEAP_SIZE=16g
+    ports:
+      - "127.0.0.1:18200:9200"
+      - "127.0.0.1:18300:9300"
+    restart: always
+recruitment_node_1:
+    ulimits:
+        nofile:
+            soft: 65536
+            hard: 65536
+        memlock:
+            soft: -1
+            hard: -1
+    container_name: recruitment1
+    image: nodextechnology/elasticsearch:2.4.6-alpine
+    command: "elasticsearch -Des.cluster.name=recruitment -Des.discovery.zen.ping.unicast.hosts=recruitment_master"
+    links:
+      - recruitment_master
+    volumes:
+      - "/home/elasticsearch:/usr/share/elasticsearch/data"
+    environment:
+       - ES_HEAP_SIZE=17g
+    restart: always
+recruitment_node_2:
+    ulimits:
+        nofile:
+            soft: 65536
+            hard: 65536
+        memlock:
+            soft: -1
+            hard: -1
+    container_name: recruitment2
+    image: elasticsearch:2.4.6-alpine
+    command: "elasticsearch -Des.cluster.name=recruitment -Des.discovery.zen.ping.unicast.hosts=recruitment_master"
+    links:
+      - recruitment_master
+    volumes:
+      - "/home/elasticsearch:/usr/share/elasticsearch/data"
+    environment:
+       - ES_HEAP_SIZE=16g
+    restart: always
 
-    solr:
-        container_name: solr
-        image: nodextechnology/solr:5.1
-        restart: always
-        ports:
-          - "127.0.0.1:8983:8983"
-          - "127.0.0.1:8080:8080"
-        command: "/usr/bin/java -Xms4g -Xmx4g  -Xloggc:/opt/solr/server/solr/logs/solr_gc.log
+solr:
+    container_name: solr
+    ulimits:
+        nofile:
+            soft: 65536
+            hard: 65536
+        memlock:
+            soft: -1
+            hard: -1
+    image: nodextechnology/solr:5.1
+    restart: always
+    ports:
+      - "127.0.0.1:8983:8983"
+      - "127.0.0.1:8080:8080"
+    command: "/usr/bin/java -Xms4g -Xmx4g  -Xloggc:/opt/solr/server/solr/logs/solr_gc.log
   -Djetty.port=8080 -DSTOP.PORT=7080 -DSTOP.KEY=solrrocks -Duser.timezone=UTC -Dsolr.solr.home=/opt/solr/server/solr -Dsolr.install.dir=/opt/solr/server -Dlog4j.configuration=file:/opt/solr/server/solr/log4j.properties -jar /opt/solr/server/start.jar"
-        volumes:
-          - "/home/solr:/opt/solr/server/solr"
+    volumes:
+      - "/home/solr:/opt/solr/server/solr"
 
-    tika:
-      container_name: tika
-      image: nodextechnology/tika:latest
-      restart: always
-      ports:
-        - "127.0.0.1:9998:9998"
+tika:
+    container_name: tika
+    ulimits:
+        nofile:
+            soft: 65536
+            hard: 65536
+        memlock:
+            soft: -1
+            hard: -1
+    image: nodextechnology/tika:latest
+    restart: always
+    ports:
+    - "127.0.0.1:9998:9998"
 
-    mongodb:
-      container_name: mongodb
-      image: nodextechnology/mongodb:3.6
-      ports:
-        - "127.0.0.1:27017:27017"
-      volumes:
-        - /home/mongodb:/data/db
-      restart: always
+mongodb:
+    container_name: mongodb
+    ulimits:
+        nofile:
+            soft: 65536
+            hard: 65536
+        memlock:
+            soft: -1
+            hard: -1
+    image: nodextechnology/mongodb:3.6
+    ports:
+    - "127.0.0.1:27017:27017"
+    volumes:
+    - /home/mongodb:/data/db
+    restart: always
 
-    elasticsearch_9200:
-        container_name: elasicsearch_legacy
-        image: nodextechnology/elasticsearch:1.7.6-alpine
-        command: "elasticsearch"
-        environment:
-           - ES_HEAP_SIZE=8g
-        ports:
-          - "127.0.0.1:9200:9200"
-          - "127.0.0.1:9300:9300"
-        volumes:
-          - "/home/elasticsearch/legacy_9200:/usr/share/elasticsearch/data"
-          - "/home/elasticsearch_snapshots/legacy:/usr/share/elasticsearch/snapshots"
-        restart: always
+elasticsearch_9200:
+    container_name: elasticsearch_legacy
+    ulimits:
+        nofile:
+            soft: 65536
+            hard: 65536
+        memlock:
+            soft: -1
+            hard: -1
+    image: nodextechnology/elasticsearch:1.7.6-alpine
+    command: "elasticsearch -Des.cluster.name=general"
+    environment:
+       - ES_HEAP_SIZE=8g
+    ports:
+      - "127.0.0.1:9200:9200"
+      - "127.0.0.1:9300:9300"
+    volumes:
+      - "/home/elasticsearch/legacy_9200:/usr/share/elasticsearch/data"
+      - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
+    restart: always
