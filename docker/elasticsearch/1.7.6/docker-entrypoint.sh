@@ -11,7 +11,7 @@ fi
 # allow the container to be started with `--user`
 if [ "$1" = 'elasticsearch' -a "$(id -u)" = '0' ]; then
 	# Change the ownership of /usr/share/elasticsearch/data to elasticsearch
-	chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data
+	chown -R elasticsearch:elasticsearch /usr/share/elasticsearch
 
 	set -- su-exec elasticsearch tini -- "$@"
 	#exec su-exec elasticsearch "$BASH_SOURCE" "$@"
@@ -20,9 +20,6 @@ fi
 if [ "$1" = 'kopf' -a "$(id -u)" = '0' ]; then
 	# Install kopf plugin
 	plugin install lmenezes/elasticsearch-kopf/v2.1.1
-
-	# Change the ownership of /usr/share/elasticsearch/data to elasticsearch
-	chown -R elasticsearch:elasticsearch /usr/share/elasticsearch
 
 	set -- su-exec elasticsearch tini -- elasticsearch
 	#exec su-exec elasticsearch "$BASH_SOURCE" "$@"
@@ -34,11 +31,7 @@ if [ "$1" = 'master' -a "$(id -u)" = '0' ]; then
 	echo "node.client: false" >> /usr/share/elasticsearch/config/elasticsearch.yml
 	echo "node.data: false" >> /usr/share/elasticsearch/config/elasticsearch.yml
 
-	# Change the ownership of /usr/share/elasticsearch/data to elasticsearch
-	chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data
-
 	set -- su-exec elasticsearch tini -- elasticsearch
-	#exec su-exec elasticsearch "$BASH_SOURCE" "$@"
 fi
 
 if [ "$1" = 'client' -a "$(id -u)" = '0' ]; then
@@ -51,9 +44,6 @@ if [ "$1" = 'client' -a "$(id -u)" = '0' ]; then
 	# Install kopf plugin
 	plugin install lmenezes/elasticsearch-kopf/v2.1.1
 
-	# Change the ownership of /usr/share/elasticsearch/data to elasticsearch
-	chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data
-
 	set -- su-exec elasticsearch tini -- elasticsearch
 	#exec su-exec elasticsearch "$BASH_SOURCE" "$@"
 fi
@@ -64,9 +54,6 @@ if [ "$1" = 'data' -a "$(id -u)" = '0' ]; then
 	echo "node.client: false" >> /usr/share/elasticsearch/config/elasticsearch.yml
 	echo "node.data: true" >> /usr/share/elasticsearch/config/elasticsearch.yml
 	echo "discovery.zen.ping.unicast.hosts: [\"elastic-master\"]" >> /usr/share/elasticsearch/config/elasticsearch.yml
-
-	# Change the ownership of /usr/share/elasticsearch/data to elasticsearch
-	chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data
 
 	set -- su-exec elasticsearch tini -- elasticsearch
 	#exec su-exec elasticsearch "$BASH_SOURCE" "$@"
