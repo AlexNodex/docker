@@ -42,11 +42,11 @@ location1:
     volumes:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     environment:
-         - ES_HEAP_SIZE=24g
+         - ES_HEAP_SIZE=16g
          - network.host=0.0.0.0
          - cluster.name=locations
          - bootstrap.memory_lock=true
-         - "ES_JAVA_OPTS=-Xms24g -Xmx24g"
+         - "ES_JAVA_OPTS=-Xms16g -Xmx16g"
          - discovery.zen.ping.unicast.hosts=locations
     restart: always
 location2:
@@ -65,11 +65,11 @@ location2:
     volumes:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     environment:
-      - ES_HEAP_SIZE=24g
+      - ES_HEAP_SIZE=16g
       - network.host=0.0.0.0
       - cluster.name=locations
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms24g -Xmx24g"
+      - "ES_JAVA_OPTS=-Xms16g -Xmx16g"
       - discovery.zen.ping.unicast.hosts=locations
     restart: always
 recruitment:
@@ -86,13 +86,13 @@ recruitment:
     volumes:
         - "/home/elasticsearch_snapshots/recruitment:/usr/share/elasticsearch/snapshots"
     environment:
-        - ES_HEAP_SIZE=16g
+        - ES_HEAP_SIZE=8g
         - node.master=true
         - node.data=false
         - network.host=0.0.0.0
         - cluster.name=recruitment
         - bootstrap.memory_lock=true
-        - "ES_JAVA_OPTS=-Xms16g -Xmx16g"
+        - "ES_JAVA_OPTS=-Xms8g -Xmx8g"
         - http.max_content_length=1000mb
         - script.engine.groovy.inline.aggs=on
     ports:
@@ -115,11 +115,11 @@ recruitment1:
     volumes:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     environment:
-      - ES_HEAP_SIZE=16g
+      - ES_HEAP_SIZE=8g
       - network.host=0.0.0.0
       - cluster.name=recruitment
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms16g -Xmx16g"
+      - "ES_JAVA_OPTS=-Xms8g -Xmx8g"
       - discovery.zen.ping.unicast.hosts=recruitment
       - path.repo=["/usr/share/elasticsearch/snapshots"]
     restart: always
@@ -139,11 +139,11 @@ recruitment2:
     volumes:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     environment:
-      - ES_HEAP_SIZE=16g
+      - ES_HEAP_SIZE8g
       - network.host=0.0.0.0
       - cluster.name=recruitment
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms16g -Xmx16g"
+      - "ES_JAVA_OPTS=-Xm8g -Xm8g"
       - discovery.zen.ping.unicast.hosts=recruitment
     restart: always
 
