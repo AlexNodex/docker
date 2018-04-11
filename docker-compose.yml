@@ -15,15 +15,7 @@ services:
         command: "elasticsearch -Des.cluster.name=locations -Des.node.master=true -Des.node.data=false -Des.path.repo=[\"/usr/share/elasticsearch/snapshots\"] -Des.http.max_content_length=1000mb -Des.script.engine.groovy.inline.aggs=on"
         environment:
            - ES_HEAP_SIZE=24g
-           - network.host=0.0.0.0
-           - node.master=true
-           - node.data=false
-           - cluster.name=locations
-           - bootstrap.memory_lock=true
            - "ES_JAVA_OPTS=-Xms24g -Xmx24g"
-           - path.repo=["/usr/share/elasticsearch/snapshots"]
-           - http.max_content_length=1000mb
-           - script.engine.groovy.inline.aggs=on
         ports:
           - "127.0.0.1:19200:9200"
           - "127.0.0.1:19300:9300"
@@ -45,11 +37,7 @@ services:
           - "/home/elasticsearch:/usr/share/elasticsearch/data"
         environment:
              - ES_HEAP_SIZE=16g
-             - network.host=0.0.0.0
-             - cluster.name=locations
-             - bootstrap.memory_lock=true
              - "ES_JAVA_OPTS=-Xms16g -Xmx16g"
-             - "discovery.zen.ping.unicast.hosts=locations"
         restart: always
     locations2:
         command: "elasticsearch -Des.cluster.name=locations -Des.discovery.zen.ping.unicast.hosts=locations"
@@ -69,11 +57,7 @@ services:
           - "/home/elasticsearch:/usr/share/elasticsearch/data"
         environment:
           - ES_HEAP_SIZE=16g
-          - network.host=0.0.0.0
-          - cluster.name=locations
-          - bootstrap.memory_lock=true
           - "ES_JAVA_OPTS=-Xms16g -Xmx16g"
-          - "discovery.zen.ping.unicast.hosts=locations"
         restart: always
     recruitment:
         ulimits:
@@ -90,14 +74,7 @@ services:
             - "/home/elasticsearch_snapshots/recruitment:/usr/share/elasticsearch/snapshots"
         environment:
             - ES_HEAP_SIZE=10g
-            - node.master=true
-            - node.data=false
-            - network.host=0.0.0.0
-            - cluster.name=recruitment
-            - bootstrap.memory_lock=true
             - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
-            - http.max_content_length=1000mb
-            - script.engine.groovy.inline.aggs=on
         ports:
           - "127.0.0.1:18200:9200"
           - "127.0.0.1:18300:9300"
@@ -119,12 +96,7 @@ services:
           - "/home/elasticsearch:/usr/share/elasticsearch/data"
         environment:
           - ES_HEAP_SIZE=10g
-          - network.host=0.0.0.0
-          - cluster.name=recruitment
-          - bootstrap.memory_lock=true
           - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
-          - discovery.zen.ping.unicast.hosts=recruitment
-          - path.repo=["/usr/share/elasticsearch/snapshots"]
         restart: always
     recruitment2:
         container_name: recruitment2
@@ -143,12 +115,7 @@ services:
           - "/home/elasticsearch:/usr/share/elasticsearch/data"
         environment:
           - ES_HEAP_SIZE=10g
-          - network.host=0.0.0.0
-          - cluster.name=recruitment
-          - bootstrap.memory_lock=true
           - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
-          - discovery.zen.ping.unicast.hosts=recruitment
-          - path.repo=["/usr/share/elasticsearch/snapshots"]
         restart: always
 
     solr:
@@ -156,13 +123,6 @@ services:
         image: nodextechnology/solr:5.1
         restart: always
         environment:
-          - jetty.port=8080
-          - solr.solr.home=/opt/solr/server/solr
-          - user.timezone=UTC
-          - STOP.KEY=solrrocks
-          - STOP.PORT=7080
-          - solr.install.dir=/opt/solr/server
-          - log4j.configuration=file:/opt/solr/server/solr/log4j.properties
         ports:
           - "127.0.0.1:8983:8983"
           - "127.0.0.1:8080:8080"
@@ -193,7 +153,6 @@ services:
         command: "elasticsearch"
         environment:
            - ES_HEAP_SIZE=8g
-           - cluster.name=legacy
         ports:
           - "127.0.0.1:9200:9200"
           - "127.0.0.1:9300:9300"
