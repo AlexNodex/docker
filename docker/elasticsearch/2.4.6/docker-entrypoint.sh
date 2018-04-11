@@ -1,6 +1,4 @@
-
-#!/bin/bash
-
+#!/bin/basha
 set -e
 
 # Add elasticsearch as command if needed
