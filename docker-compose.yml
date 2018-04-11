@@ -2,7 +2,7 @@ location_master:
     image: nodextechnology/elasticsearch:2.4.6-alpine
     command: "elasticsearch -Des.cluster.name=locations -Des.node.master=true -Des.node.data=false"
     volumes:
-      - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
+      - "/home/elasticsearch_snapshots/locations:/usr/share/elasticsearch/snapshots"
     environment:
        - ES_HEAP_SIZE=24g
     ports:
@@ -32,6 +32,8 @@ location_node_2:
 recruitment_master:
     image: nodextechnology/elasticsearch:2.4.6-alpine
     command: "elasticsearch -Des.cluster.name=recruitment -Des.node.master=true -Des.node.data=false"
+    volumes:
+      - "/home/elasticsearch_snapshots/recruitment:/usr/share/elasticsearch/snapshots"
     environment:
        - ES_HEAP_SIZE=16g
     ports:
@@ -94,5 +96,5 @@ elasticsearch_9200:
       - "127.0.0.1:9300:9300"
     volumes:
       - "/home/elasticsearch/legacy_9200:/usr/share/elasticsearch/data"
-      - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
+      - "/home/elasticsearch_snapshots/legacy:/usr/share/elasticsearch/snapshots"
     restart: always
