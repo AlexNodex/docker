@@ -1,5 +1,5 @@
 location_master:
-    image: elasticsearch:2.4-alpine
+    image: nodextechnology/elasticsearch:2.4.6-alpine
     command: "elasticsearch -Des.cluster.name=locations -Des.node.master=true -Des.node.data=false"
     volumes:
       - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
@@ -10,7 +10,7 @@ location_master:
       - "127.0.0.1:19300:9300"
     restart: always
 location_node_1:
-    image: elasticsearch:2.4-alpine
+    image: nodextechnology/elasticsearch:2.4.6-alpine
     command: "elasticsearch -Des.cluster.name=locations -Des.discovery.zen.ping.unicast.hosts=location_master"
     links:
       - location_master
@@ -20,7 +20,7 @@ location_node_1:
        - ES_HEAP_SIZE=24g
     restart: always
 location_node_2:
-    image: elasticsearch:2.4-alpine
+    image: nodextechnology/elasticsearch:2.4.6-alpine
     command: "elasticsearch -Des.cluster.name=locations -Des.discovery.zen.ping.unicast.hosts=location_master"
     links:
       - location_master
