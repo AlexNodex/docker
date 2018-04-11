@@ -12,7 +12,7 @@ services:
             memlock:
                 soft: -1
                 hard: -1
-        command: "elasticsearch -Des.cluster.name=locations -Des.node.master=true -Des.node.data=false -Des.bootstrap.memory_lock=true -Des.path.repo=[\"/usr/share/elasticsearch/snapshots\"] -Des.http.max_content_length=1000mb -Des.script.engine.groovy.inline.aggs=on"
+        command: "elasticsearch -Des.cluster.name=locations -Des.node.master=true -Des.node.data=false -Des.path.repo=[\"/usr/share/elasticsearch/snapshots\"] -Des.http.max_content_length=1000mb -Des.script.engine.groovy.inline.aggs=on"
         environment:
            - ES_HEAP_SIZE=24g
            - network.host=0.0.0.0
