@@ -36,8 +36,8 @@ services:
         volumes:
           - "/home/elasticsearch:/usr/share/elasticsearch/data"
         environment:
-             - ES_HEAP_SIZE=16g
-             - "ES_JAVA_OPTS=-Xms16g -Xmx16g"
+             - ES_HEAP_SIZE=15g
+             - "ES_JAVA_OPTS=-Xms15g -Xmx15g"
         restart: always
     locations2:
         command: "elasticsearch -Des.cluster.name=locations -Des.discovery.zen.ping.unicast.hosts=locations -Des.node.master=false -Des.node.data=true"
