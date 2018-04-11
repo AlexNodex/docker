@@ -22,7 +22,7 @@ if [ "$1" = 'kopf' -a "$(id -u)" = '0' ]; then
 	plugin install lmenezes/elasticsearch-kopf/v2.1.1
 
 	# Change the ownership of /usr/share/elasticsearch/data to elasticsearch
-	chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data
+	chown -R elasticsearch:elasticsearch /usr/share/elasticsearch
 
 	set -- su-exec elasticsearch tini -- elasticsearch
 	#exec su-exec elasticsearch "$BASH_SOURCE" "$@"
