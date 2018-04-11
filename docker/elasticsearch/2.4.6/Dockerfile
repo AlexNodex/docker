@@ -69,7 +69,7 @@ RUN set -ex; \
 		elasticsearch -v; \
 	fi
 
-COPY config ./config
+#COPY config ./config
 
 VOLUME /usr/share/elasticsearch/data
 
