@@ -26,7 +26,7 @@ locations:
       - "127.0.0.1:19200:9200"
       - "127.0.0.1:19300:9300"
     restart: always
-location1:
+locations1:
     ulimits:
         nofile:
             soft: 65536
@@ -35,7 +35,7 @@ location1:
             soft: -1
             hard: -1
     image: nodextechnology/elasticsearch:2.4.6-alpine
-    container_name: location1
+    container_name: locations1
     command: "elasticsearch"
     links:
       - locations
@@ -49,7 +49,7 @@ location1:
          - "ES_JAVA_OPTS=-Xms16g -Xmx16g"
          - discovery.zen.ping.unicast.hosts=locations
     restart: always
-location2:
+locations2:
     ulimits:
         nofile:
             soft: 65536
@@ -57,7 +57,7 @@ location2:
         memlock:
             soft: -1
             hard: -1
-    container_name: location2
+    container_name: locations2
     image: nodextechnology/elasticsearch:2.4.6-alpine
     command: "elasticsearch"
     links:
@@ -145,6 +145,7 @@ recruitment2:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
       - discovery.zen.ping.unicast.hosts=recruitment
+      - path.repo=["/usr/share/elasticsearch/snapshots"]
     restart: always
 
 solr:
