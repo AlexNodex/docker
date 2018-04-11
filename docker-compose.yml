@@ -21,7 +21,7 @@ services:
           - "127.0.0.1:19300:9300"
         restart: always
     locations1:
-        command: "elasticsearch -Des.cluster.name=locations -Des.discovery.zen.ping.unicast.hosts=locations"
+        command: "elasticsearch -Des.cluster.name=locations -Des.discovery.zen.ping.unicast.hosts=locations -Des.node.master=false -Des.node.data=true"
         ulimits:
             nofile:
                 soft: 65536
@@ -40,7 +40,7 @@ services:
              - "ES_JAVA_OPTS=-Xms16g -Xmx16g"
         restart: always
     locations2:
-        command: "elasticsearch -Des.cluster.name=locations -Des.discovery.zen.ping.unicast.hosts=locations"
+        command: "elasticsearch -Des.cluster.name=locations -Des.discovery.zen.ping.unicast.hosts=locations -Des.node.master=false -Des.node.data=true"
         ulimits:
             nofile:
                 soft: 65536
