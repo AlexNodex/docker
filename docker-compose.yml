@@ -48,16 +48,15 @@ services:
             memlock:
                 soft: -1
                 hard: -1
-        container_name: locations2
         image: nodextechnology/elasticsearch:2.4.6-alpine
-        command: "elasticsearch"
+        container_name: locations2
         links:
           - locations
         volumes:
           - "/home/elasticsearch:/usr/share/elasticsearch/data"
         environment:
-          - ES_HEAP_SIZE=16g
-          - "ES_JAVA_OPTS=-Xms16g -Xmx16g"
+             - ES_HEAP_SIZE=16g
+             - "ES_JAVA_OPTS=-Xms16g -Xmx16g"
         restart: always
     recruitment:
         ulimits:
