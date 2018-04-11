@@ -85,7 +85,7 @@ mongodb:
   restart: always
 
 elasticsearch_9200:
-    image: nodextechnology/elasticsearch:1.7.6
+    image: nodextechnology/elasticsearch:1.7.6-alpine
     command: "elasticsearch -Des.cluster.name=general"
     environment:
        - ES_HEAP_SIZE=8g
