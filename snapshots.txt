@@ -6,7 +6,21 @@ curl -XPUT 'http://localhost:9200/_snapshot/legacy_backup' -d '{
     }
 }'
 
+curl -XPUT 'http://localhost:19200/_snapshot/locations_backup' -d '{
+    "type": "fs",
+    "settings": {
+        "location": "/usr/share/elasticsearch/snapshots/locations_backup",
+        "compress": true
+    }
+}'
 
+curl -XPUT 'http://localhost:18200/_snapshot/recruitment_backup' -d '{
+    "type": "fs",
+    "settings": {
+        "location": "/usr/share/elasticsearch/snapshots/recruitment_backup",
+        "compress": true
+    }
+}'
 
 curl -XPUT 'http://localhost:9200/_snapshot/legacy_backup' -d '{
     "type": "fs",
