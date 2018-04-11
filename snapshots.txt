@@ -6,6 +6,24 @@ curl -XPUT 'http://localhost:9200/_snapshot/legacy_backup' -d '{
     }
 }'
 
+curl -XPUT 'http://localhost:18200/_snapshot/backup' -d '{
+    "type": "fs",
+    "settings": {
+        "location": "/storage/elasticsearch/18200/snapshots",
+        "compress": true
+    }
+}'
+
+curl -XPUT 'http://localhost:19200/_snapshot/backup' -d '{
+    "type": "fs",
+    "settings": {
+        "location": "/storage/elasticsearch/19200/snapshots",
+        "compress": true
+    }
+}'
+
+
+
 curl -XPUT 'http://localhost:19200/_snapshot/backup?pretty' -d '{
     "type": "fs",
     "settings": {
@@ -25,7 +43,64 @@ curl -XPUT 'http://localhost:18200/_snapshot/backup' -d '{
 curl -XPUT 'http://localhost:9200/_snapshot/legacy_backup' -d '{
     "type": "fs",
     "settings": {
-        "location": "/usr/share/elasticsearch/snapshots/backup",
+        "location": "/usr/share/elasticsearch/snapshots",
         "compress": true
     }
 }'
+
+
+curl -XPUT 'http://localhost:9200/_snapshot/legacy_backup/snapshot?wait_for_completion=true&pretty=true'
+
+
+curl -XPUT 'http://localhost:18200/_snapshot/backup/snapshot?wait_for_completion=true&pretty=true'
+
+curl -XPOST 'http://localhost:18200/_snapshot/backup/snapshot/_restore'
+curl -XPOST 'http://localhost:9200/_snapshot/legacy_backup/snapshot/_restore'
+
+curl -XDELETE localhost:18200/mod.php
+curl -XDELETE localhost:18200/servlet
+curl -XDELETE localhost:18200/messagebroker
+curl -XDELETE localhost:18200/ovaavs1.html
+curl -XDELETE localhost:18200/flex2gateway
+curl -XDELETE localhost:18200/phppath
+curl -XDELETE localhost:18200/lcds-samples
+curl -XDELETE localhost:18200/msadc
+curl -XDELETE localhost:18200/webui
+curl -XDELETE localhost:18200/formmail.pl
+curl -XDELETE localhost:18200/perl
+curl -XDELETE localhost:18200/jsonrpc
+curl -XDELETE localhost:18200/samba
+curl -XDELETE localhost:18200/sawmill6cl.exe
+curl -XDELETE localhost:18200/comersus_backoffice_login.php
+curl -XDELETE localhost:18200/blazeds
+curl -XDELETE localhost:18200/samples
+curl -XDELETE localhost:18200/gw
+curl -XDELETE localhost:18200/lcds
+curl -XDELETE localhost:18200/recordings
+curl -XDELETE localhost:18200/smbshr.pl
+curl -XDELETE localhost:18200/sawmillcl.exe
+curl -XDELETE localhost:18200/formmail
+curl -XDELETE localhost:18200/kb.cgi
+
+
+### the dump ###
+rm -rf /storage/elasticsearch/9200/snapshots/*
+curl -XPUT 'http://localhost:9200/_snapshot/legacy_backup/snapshot?wait_for_completion=true&pretty=true'
+
+rm -rf /storage/elasticsearch/18200/snapshots/*
+curl -XPUT 'http://localhost:18200/_snapshot/backup/snapshot?wait_for_completion=true&pretty=true'
+
+
+
+### the restore ###
+rsync -r /storage/elasticsearch/9200/snapshots/* --rsh="ssh nodex" :/home/elasticsearch_snapshots/legacy
+curl -XPOST 'http://localhost:9200/_all/_close'
+curl -XPOST 'http://localhost:9200/_snapshot/legacy_backup/snapshot/_restore?pretty'
+curl -XPOST 'http://localhost:9200/_all/_open'
+
+
+### the restore ###
+rsync -r /storage/elasticsearch/18200/snapshots/* --rsh="ssh nodex" :/home/elasticsearch_snapshots/recruitment/backup
+curl -XPOST 'http://localhost:18200/_all/_close'
+curl -XPOST 'http://localhost:18200/_snapshot/backup/snapshot/_restore?pretty'
+curl -XPOST 'http://localhost:18200/_all/_open'

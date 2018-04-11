@@ -47,7 +47,7 @@ locations1:
          - cluster.name=locations
          - bootstrap.memory_lock=true
          - "ES_JAVA_OPTS=-Xms16g -Xmx16g"
-         - discovery.zen.ping.unicast.hosts=locations
+         - "discovery.zen.ping.unicast.hosts=locations"
     restart: always
 locations2:
     ulimits:
@@ -70,7 +70,7 @@ locations2:
       - cluster.name=locations
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms16g -Xmx16g"
-      - discovery.zen.ping.unicast.hosts=locations
+      - "discovery.zen.ping.unicast.hosts=locations"
     restart: always
 recruitment:
     ulimits:
