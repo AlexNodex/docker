@@ -122,7 +122,6 @@ services:
         container_name: solr
         image: nodextechnology/solr:5.1
         restart: always
-        environment:
         ports:
           - "127.0.0.1:8983:8983"
           - "127.0.0.1:8080:8080"
