@@ -97,7 +97,7 @@ recruitment_node_2:
             soft: -1
             hard: -1
     container_name: recruitment2
-    image: elasticsearch:2.4.6-alpine
+    image: nodextechnology/elasticsearch:2.4.6-alpine
     command: "elasticsearch -Des.cluster.name=recruitment -Des.discovery.zen.ping.unicast.hosts=recruitment_master"
     links:
       - recruitment_master
