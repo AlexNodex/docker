@@ -12,7 +12,7 @@ location_master:
     volumes:
       - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
     environment:
-       - ES_HEAP_SIZE=16g
+       - ES_HEAP_SIZE=10g
     ports:
       - "127.0.0.1:19200:9200"
       - "127.0.0.1:19300:9300"
@@ -33,7 +33,7 @@ location_node_1:
     volumes:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     environment:
-       - ES_HEAP_SIZE=16g
+       - ES_HEAP_SIZE=10g
     restart: always
 location_node_2:
     ulimits:
@@ -51,7 +51,7 @@ location_node_2:
     volumes:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     environment:
-       - ES_HEAP_SIZE=16g
+       - ES_HEAP_SIZE=10g
     restart: always
 recruitment_master:
     ulimits:
@@ -65,7 +65,7 @@ recruitment_master:
     image: nodextechnology/elasticsearch:2.4.6-alpine
     command: "elasticsearch -Des.cluster.name=recruitment -Des.node.master=true -Des.node.data=false"
     environment:
-       - ES_HEAP_SIZE=16g
+      - ES_HEAP_SIZE=10g
     ports:
       - "127.0.0.1:18200:9200"
       - "127.0.0.1:18300:9300"
@@ -86,7 +86,7 @@ recruitment_node_1:
     volumes:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     environment:
-       - ES_HEAP_SIZE=17g
+       - ES_HEAP_SIZE=10g
     restart: always
 recruitment_node_2:
     ulimits:
@@ -104,7 +104,7 @@ recruitment_node_2:
     volumes:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     environment:
-       - ES_HEAP_SIZE=16g
+       - ES_HEAP_SIZE=10g
     restart: always
 
 solr:
