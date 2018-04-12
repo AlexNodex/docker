@@ -69,6 +69,8 @@ recruitment_master:
     ports:
       - "127.0.0.1:18200:9200"
       - "127.0.0.1:18300:9300"
+    volumes:
+        - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
     restart: always
 recruitment_node_1:
     ulimits:
@@ -85,6 +87,7 @@ recruitment_node_1:
       - recruitment_master
     volumes:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
+      - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
     environment:
        - ES_HEAP_SIZE=10g
     restart: always
@@ -103,6 +106,7 @@ recruitment_node_2:
       - recruitment_master
     volumes:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
+      - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
     environment:
        - ES_HEAP_SIZE=10g
     restart: always
