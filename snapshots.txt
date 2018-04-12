@@ -32,7 +32,7 @@ curl -XPUT 'http://localhost:19200/_snapshot/backup?pretty' -d '{
     }
 }'
 
-curl -XPUT 'http://localhost:18200/_snapshot/backup' -d '{
+curl -XPUT 'http://localhost:18200/_snapshot/backup?pretty' -d '{
     "type": "fs",
     "settings": {
         "location": "/usr/share/elasticsearch/snapshots/backup",
