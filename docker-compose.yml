@@ -32,7 +32,7 @@ location_master:
     volumes:
       - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
     environment:
-       - ES_HEAP_SIZE=4g
+       - ES_HEAP_SIZE=2g
     ports:
       - "127.0.0.1:29200:9200"
       - "127.0.0.1:29300:9300"
@@ -53,7 +53,7 @@ location_node_1:
     volumes:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     environment:
-       - ES_HEAP_SIZE=4g
+       - ES_HEAP_SIZE=2g
     restart: always
 location_node_2:
     ulimits:
@@ -71,7 +71,7 @@ location_node_2:
     volumes:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     environment:
-       - ES_HEAP_SIZE=4g
+       - ES_HEAP_SIZE=2g
     restart: always
 recruitment_master:
     ulimits:
