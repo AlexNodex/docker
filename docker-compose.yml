@@ -6,7 +6,7 @@ locations:
         memlock:
             soft: -1
             hard: -1
-    container_name: location_master
+    container_name: locations
     image: nodextechnology/elasticsearch:2.4.6-alpine
     command: "elasticsearch -Des.cluster.name=locations_test"
     volumes:
