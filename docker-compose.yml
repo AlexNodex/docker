@@ -1,4 +1,3 @@
-network_mode: host
 locations:
     ulimits:
         nofile:
