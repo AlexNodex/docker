@@ -1,3 +1,23 @@
+locations:
+    ulimits:
+        nofile:
+            soft: 65536
+            hard: 65536
+        memlock:
+            soft: -1
+            hard: -1
+    container_name: location_master
+    image: nodextechnology/elasticsearch:2.4.6-alpine
+    command: "elasticsearch -Des.cluster.name=locations_test"
+    volumes:
+      - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
+      - "/home/elasticsearch:/usr/share/elasticsearch/data"
+    environment:
+       - ES_HEAP_SIZE=16g
+    ports:
+      - "127.0.0.1:19200:9200"
+      - "127.0.0.1:19300:9300"
+    restart: always
 location_master:
     ulimits:
         nofile:
@@ -12,10 +32,10 @@ location_master:
     volumes:
       - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
     environment:
-       - ES_HEAP_SIZE=10g
+       - ES_HEAP_SIZE=4g
     ports:
-      - "127.0.0.1:19200:9200"
-      - "127.0.0.1:19300:9300"
+      - "127.0.0.1:29200:9200"
+      - "127.0.0.1:29300:9300"
     restart: always
 location_node_1:
     ulimits:
@@ -33,7 +53,7 @@ location_node_1:
     volumes:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     environment:
-       - ES_HEAP_SIZE=10g
+       - ES_HEAP_SIZE=4g
     restart: always
 location_node_2:
     ulimits:
@@ -51,7 +71,7 @@ location_node_2:
     volumes:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     environment:
-       - ES_HEAP_SIZE=10g
+       - ES_HEAP_SIZE=4g
     restart: always
 recruitment_master:
     ulimits:
