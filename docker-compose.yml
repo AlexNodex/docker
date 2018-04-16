@@ -13,65 +13,10 @@ locations:
       - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     environment:
-       - ES_HEAP_SIZE=20g
+       - ES_HEAP_SIZE=30g
     ports:
       - "127.0.0.1:19200:9200"
       - "127.0.0.1:19300:9300"
-    restart: always
-location_master:
-    ulimits:
-        nofile:
-            soft: 65536
-            hard: 65536
-        memlock:
-            soft: -1
-            hard: -1
-    container_name: location_master
-    image: nodextechnology/elasticsearch:2.4.6-alpine
-    command: "elasticsearch -Des.cluster.name=locations -Des.node.master=true -Des.node.data=false"
-    volumes:
-      - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
-    environment:
-       - ES_HEAP_SIZE=2g
-    ports:
-      - "127.0.0.1:39200:9200"
-      - "127.0.0.1:39300:9300"
-    restart: always
-location_node_1:
-    ulimits:
-        nofile:
-            soft: 65536
-            hard: 65536
-        memlock:
-            soft: -1
-            hard: -1
-    container_name: location1
-    image: nodextechnology/elasticsearch:2.4.6-alpine
-    command: "elasticsearch -Des.cluster.name=locations -Des.discovery.zen.ping.unicast.hosts=location_master"
-    links:
-      - location_master
-    volumes:
-      - "/home/elasticsearch:/usr/share/elasticsearch/data"
-    environment:
-       - ES_HEAP_SIZE=2g
-    restart: always
-location_node_2:
-    ulimits:
-        nofile:
-            soft: 65536
-            hard: 65536
-        memlock:
-            soft: -1
-            hard: -1
-    container_name: location2
-    image: nodextechnology/elasticsearch:2.4.6-alpine
-    command: "elasticsearch -Des.cluster.name=locations -Des.discovery.zen.ping.unicast.hosts=location_master"
-    links:
-      - location_master
-    volumes:
-      - "/home/elasticsearch:/usr/share/elasticsearch/data"
-    environment:
-       - ES_HEAP_SIZE=2g
     restart: always
 recruitment_master:
     ulimits:
