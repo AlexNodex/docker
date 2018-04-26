@@ -8,7 +8,7 @@ locations:
             hard: -1
     container_name: locations
     image: nodextechnology/elasticsearch:2.4.6-alpine
-    command: "elasticsearch -Des.cluster.name=locations_test"
+    command: "elasticsearch -Des.cluster.name=locations"
     volumes:
       - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
