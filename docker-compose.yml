@@ -137,7 +137,7 @@ elasticsearch_9200:
     image: nodextechnology/elasticsearch:1.7.6-alpine
     command: "elasticsearch -Des.cluster.name=general"
     environment:
-       - ES_HEAP_SIZE=8g
+       - ES_HEAP_SIZE=6g
     ports:
       - "127.0.0.1:9200:9200"
       - "127.0.0.1:9300:9300"
