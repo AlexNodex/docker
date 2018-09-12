@@ -70,7 +70,7 @@ RUN set -ex; \
 	fi
 
 #COPY config ./config
-
+RUN /usr/share/elasticsearch/bin/plugin install delete-by-query --verbose
 VOLUME /usr/share/elasticsearch/data
 
 #COPY config/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
