@@ -15,8 +15,8 @@ locations:
     environment:
        - ES_HEAP_SIZE=30g
     ports:
-      - "127.0.0.1:19200:0.0.0.0:9200"
-      - "127.0.0.1:19300:0.0.0.0:9300"
+      - "127.0.0.1:19200:9200"
+      - "127.0.0.1:19300:9300"
     restart: always
 recruitment_master:
     ulimits:
