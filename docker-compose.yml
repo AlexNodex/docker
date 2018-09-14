@@ -145,3 +145,23 @@ elasticsearch_9200:
       - "/home/elasticsearch/legacy_9200:/usr/share/elasticsearch/data"
       - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
     restart: always
+test:
+    ulimits:
+        nofile:
+            soft: 65536
+            hard: 65536
+        memlock:
+            soft: -1
+            hard: -1
+    container_name: test
+    image: nodextechnology/elasticsearch:2.4.6-alpine
+    command: "elasticsearch -Des.cluster.name=test"
+    volumes:
+      - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
+      - "/home/elasticsearch:/usr/share/elasticsearch/data"
+    environment:
+       - ES_HEAP_SIZE=2g
+    ports:
+      - "127.0.0.1:29200:9200"
+      - "127.0.0.1:29300:9300"
+    restart: always
