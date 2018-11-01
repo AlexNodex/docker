@@ -154,7 +154,7 @@ cunt:
             soft: -1
             hard: -1
     container_name: cunt
-    image: nodextechnology/elasticsearch:2.4.6-alpine
+    image: nodextechnology/elasticsearch:2.4.6-alpine-delete
     command: "elasticsearch -Des.cluster.name=cunt"
     volumes:
       - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
