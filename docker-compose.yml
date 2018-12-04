@@ -150,5 +150,5 @@ pdf:
     container_name: pdf
     image: arachnysdocker/athenapdf-service
     ports:
-      - "127.0.0.1:32464:32464"
+      - "127.0.0.1:32464:8080"
     restart: always
