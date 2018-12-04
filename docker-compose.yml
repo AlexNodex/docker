@@ -145,23 +145,10 @@ elasticsearch_9200:
       - "/home/elasticsearch/legacy_9200:/usr/share/elasticsearch/data"
       - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
     restart: always
-cunt:
-    ulimits:
-        nofile:
-            soft: 65536
-            hard: 65536
-        memlock:
-            soft: -1
-            hard: -1
-    container_name: cunt
-    image: nodextechnology/elasticsearch:2.4.6-alpine-delete
-    command: "elasticsearch -Des.cluster.name=cunt"
-    volumes:
-      - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
-      - "/home/elasticsearch:/usr/share/elasticsearch/data"
-    environment:
-       - ES_HEAP_SIZE=2g
+
+pdf:
+    container_name: pdf
+    image: arachnysdocker/athenapdf-service
     ports:
-      - "127.0.0.1:39000:9200"
-      - "127.0.0.1:39500:9300"
+      - "127.0.0.1:32464:32464"
     restart: always
