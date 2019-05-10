@@ -78,6 +78,8 @@ recruitment_node_2:
 
 solr:
     container_name: solr
+    logging:
+        driver: none
     ulimits:
         nofile:
             soft: 65536
