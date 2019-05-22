@@ -87,7 +87,6 @@ services:
       - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
       - http.cors.enabled=true
       - http.cors.allow-origin=*
-      - discovery.zen.minimum_master_nodes=1
     ulimits:
       memlock:
         soft: -1
@@ -108,7 +107,6 @@ services:
       - "ES_JAVA_OPTS=-Xms6g -Xmx6g"
       - http.cors.enabled=true
       - http.cors.allow-origin=*
-      - discovery.zen.minimum_master_nodes=1
     ulimits:
       memlock:
         soft: -1
@@ -128,7 +126,6 @@ services:
       - "ES_JAVA_OPTS=-Xms6g -Xmx6g"
       - http.cors.enabled=true
       - http.cors.allow-origin=*
-      - discovery.zen.minimum_master_nodes=1
     ulimits:
       memlock:
         soft: -1
