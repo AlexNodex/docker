@@ -115,6 +115,7 @@ services:
       - node.data=true
       - cluster.name=fabric-crm-emails
       - cluster.initial_master_nodes=elasticsearch_7_email_master
+      - "discovery.zen.ping.unicast.hosts=elasticsearch_7_email_master"
       - "ES_JAVA_OPTS=-Xms6g -Xmx6g"
       - http.cors.enabled=true
       - http.cors.allow-origin=*
