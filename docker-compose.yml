@@ -225,6 +225,8 @@ services:
       restart: always
 volumes:
   esdata1:
-    type: none
-    device: /home/elasticsearch
-    o: bind
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/elasticsearch
+      o: bind
