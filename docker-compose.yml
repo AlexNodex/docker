@@ -225,4 +225,6 @@ services:
       restart: always
 volumes:
   esdata1:
-    driver: local
+    type: none
+    device: /home/elasticsearch
+    o: bind
