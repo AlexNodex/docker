@@ -83,7 +83,6 @@ services:
     container_name: elasticsearch_7_email_master
     environment:
       - cluster.name=fabric-crm-emails
-      - cluster.initial_master_nodes=elasticsearch_7_email_master
       - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
       - http.cors.enabled=true
       - http.cors.allow-origin=*
