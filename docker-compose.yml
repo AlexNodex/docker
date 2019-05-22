@@ -1,6 +1,6 @@
 version: '2'
 
-services: 
+services:
   locations:
       ulimits:
           nofile:
@@ -78,7 +78,66 @@ services:
       environment:
          - ES_HEAP_SIZE=10g
       restart: always
-
+  elasticsearch_7_email_master:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.0.1
+    container_name: es_email_master
+    environment:
+      - cluster.name=fabric-crm-emails
+      - cluster.initial_master_nodes=es_email_master
+      - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - discovery.zen.minimum_master_nodes=1
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "127.0.0.1:18700:9200"
+      - "127.0.0.1:18800:9300"
+    volumes:
+      - "/home/elasticsearch:/usr/share/elasticsearch/data"
+    restart: always
+  elasticsearch_7_email_node_1:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.0.1
+    container_name: es_email_node_1
+    environment:
+      - cluster.name=fabric-crm-emails
+      - cluster.initial_master_nodes=es_email_master
+      - "discovery.zen.ping.unicast.hosts=es_email_master"
+      - "ES_JAVA_OPTS=-Xms6g -Xmx6g"
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - discovery.zen.minimum_master_nodes=1
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - "/home/elasticsearch:/usr/share/elasticsearch/data"
+    restart: always
+    links:
+      - es_email_master
+  elasticsearch_7_email_node_2:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.0.1
+    container_name: es_email_node_2
+    environment:
+      - cluster.name=fabric-crm-emails
+      - cluster.initial_master_nodes=es_email_master
+      - "discovery.zen.ping.unicast.hosts=es_email_master"
+      - "ES_JAVA_OPTS=-Xms6g -Xmx6g"
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - discovery.zen.minimum_master_nodes=1
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - "/home/elasticsearch:/usr/share/elasticsearch/data"
+    restart: always
+    links:
+      - es_email_master
   solr:
       container_name: solr
       logging:
