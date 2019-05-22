@@ -80,10 +80,10 @@ services:
       restart: always
   elasticsearch_7_email_master:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.0.1
-    container_name: es_email_master
+    container_name: elasticsearch_7_email_master
     environment:
       - cluster.name=fabric-crm-emails
-      - cluster.initial_master_nodes=es_email_master
+      - cluster.initial_master_nodes=elasticsearch_7_email_master
       - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
       - http.cors.enabled=true
       - http.cors.allow-origin=*
@@ -103,8 +103,8 @@ services:
     container_name: es_email_node_1
     environment:
       - cluster.name=fabric-crm-emails
-      - cluster.initial_master_nodes=es_email_master
-      - "discovery.zen.ping.unicast.hosts=es_email_master"
+      - cluster.initial_master_nodes=elasticsearch_7_email_master
+      - "discovery.zen.ping.unicast.hosts=elasticsearch_7_email_master"
       - "ES_JAVA_OPTS=-Xms6g -Xmx6g"
       - http.cors.enabled=true
       - http.cors.allow-origin=*
@@ -117,14 +117,14 @@ services:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     restart: always
     links:
-      - es_email_master
+      - elasticsearch_7_email_master
   elasticsearch_7_email_node_2:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.0.1
     container_name: es_email_node_2
     environment:
       - cluster.name=fabric-crm-emails
-      - cluster.initial_master_nodes=es_email_master
-      - "discovery.zen.ping.unicast.hosts=es_email_master"
+      - cluster.initial_master_nodes=elasticsearch_7_email_master
+      - "discovery.zen.ping.unicast.hosts=elasticsearch_7_email_master"
       - "ES_JAVA_OPTS=-Xms6g -Xmx6g"
       - http.cors.enabled=true
       - http.cors.allow-origin=*
@@ -137,7 +137,7 @@ services:
       - "/home/elasticsearch:/usr/share/elasticsearch/data"
     restart: always
     links:
-      - es_email_master
+      - elasticsearch_7_email_master
   solr:
       container_name: solr
       logging:
