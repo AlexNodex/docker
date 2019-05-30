@@ -16,7 +16,7 @@ services:
         - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
         - "/home/elasticsearch:/usr/share/elasticsearch/data"
       environment:
-         - ES_HEAP_SIZE=30g
+         - ES_HEAP_SIZE=24g
       ports:
         - "127.0.0.1:19200:9200"
         - "127.0.0.1:19300:9300"
@@ -33,7 +33,7 @@ services:
       image: nodextechnology/elasticsearch:2.4.6-alpine-delete
       command: "elasticsearch -Des.cluster.name=recruitment -Des.node.master=true -Des.node.data=false -Des.path.repo=[\"/usr/share/elasticsearch/snapshots\"] -Des.http.max_content_length=1000mb -Des.script.engine.groovy.inline.aggs=on"
       environment:
-        - ES_HEAP_SIZE=10g
+        - ES_HEAP_SIZE=16g
       ports:
         - "127.0.0.1:18200:9200"
         - "127.0.0.1:18300:9300"
@@ -57,7 +57,7 @@ services:
         - "/home/elasticsearch:/usr/share/elasticsearch/data"
         - "/home/elasticsearch_snapshots/recruitment:/usr/share/elasticsearch/snapshots"
       environment:
-         - ES_HEAP_SIZE=10g
+         - ES_HEAP_SIZE=12g
       restart: always
   recruitment_node_2:
       ulimits:
@@ -76,7 +76,7 @@ services:
         - "/home/elasticsearch:/usr/share/elasticsearch/data"
         - "/home/elasticsearch_snapshots/recruitment:/usr/share/elasticsearch/snapshots"
       environment:
-         - ES_HEAP_SIZE=10g
+         - ES_HEAP_SIZE=12g
       restart: always
   elasticsearch_7_email_master:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.0.1
@@ -88,7 +88,7 @@ services:
       - node.name=elasticsearch_7_email_master
       - cluster.name=fabric-crm-emails
       - cluster.initial_master_nodes=elasticsearch_7_email_master
-      - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
       - http.cors.enabled=true
       - http.cors.allow-origin=*
     ulimits:
