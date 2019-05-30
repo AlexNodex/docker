@@ -1,0 +1,104 @@
+elasticsearch_7_email_master:
+  image: docker.elastic.co/elasticsearch/elasticsearch:7.0.1
+  container_name: elasticsearch_7_email_master
+  environment:
+    - node.max_local_storage_nodes=3
+    - node.master=true
+    - node.data=true
+    - node.name=elasticsearch_7_email_master
+    - cluster.name=fabric-crm-emails
+    - cluster.initial_master_nodes=elasticsearch_7_email_master
+    - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+    - http.cors.enabled=true
+    - http.cors.allow-origin=*
+  ulimits:
+    memlock:
+      soft: -1
+      hard: -1
+    nofile:
+      soft: 65536
+      hard: 65536
+  ports:
+    - "127.0.0.1:18700:9200"
+    - "127.0.0.1:18800:9300"
+  volumes:
+    - esdata1:/usr/share/elasticsearch/data
+  restart: always
+  networks:
+    - esnet
+elasticsearch_7_email_node_1:
+  image: docker.elastic.co/elasticsearch/elasticsearch:7.0.1
+  container_name: es_email_node_1
+  environment:
+    - node.max_local_storage_nodes=3
+    - node.master=false
+    - node.data=true
+    - cluster.name=fabric-crm-emails
+    - cluster.initial_master_nodes=elasticsearch_7_email_master
+    - "discovery.zen.ping.unicast.hosts=elasticsearch_7_email_master"
+    - "ES_JAVA_OPTS=-Xms6g -Xmx6g"
+    - http.cors.enabled=true
+    - http.cors.allow-origin=*
+  ulimits:
+    memlock:
+      soft: -1
+      hard: -1
+    nofile:
+      soft: 65536
+      hard: 65536
+  volumes:
+    - esdata2:/usr/share/elasticsearch/data
+  restart: always
+  links:
+    - elasticsearch_7_email_master
+  networks:
+    - esnet
+elasticsearch_7_email_node_2:
+  image: docker.elastic.co/elasticsearch/elasticsearch:7.0.1
+  container_name: es_email_node_2
+  environment:
+    - node.max_local_storage_nodes=3
+    - node.master=false
+    - node.data=true
+    - cluster.name=fabric-crm-emails
+    - cluster.initial_master_nodes=elasticsearch_7_email_master
+    - "discovery.zen.ping.unicast.hosts=elasticsearch_7_email_master"
+    - "ES_JAVA_OPTS=-Xms6g -Xmx6g"
+    - http.cors.enabled=true
+    - http.cors.allow-origin=*
+  ulimits:
+    memlock:
+      soft: -1
+      hard: -1
+    nofile:
+      soft: 65536
+      hard: 65536
+  volumes:
+    - esdata3:/usr/share/elasticsearch/data
+  restart: always
+  links:
+    - elasticsearch_7_email_master
+  networks:
+    - esnet
+
+volumes:
+  esdata1:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/elasticsearch/emails/master
+      o: bind
+  esdata2:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/elasticsearch/emails/node_1
+      o: bind
+  esdata3:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/elasticsearch/emails/node_2
+      o: bind
+networks:
+  esnet:
