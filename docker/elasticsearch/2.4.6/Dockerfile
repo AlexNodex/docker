@@ -55,6 +55,7 @@ RUN set -ex; \
 		./logs \
 		./config \
 		./config/scripts \
+		./shit \
 	; do \
 		mkdir -p "$path"; \
 		chown -R elasticsearch:elasticsearch "$path"; \
