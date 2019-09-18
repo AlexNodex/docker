@@ -15,6 +15,8 @@ if [ "$1" = 'elasticsearch' -a "$(id -u)" = '0' ]; then
 		/usr/share/elasticsearch/data \
 		/usr/share/elasticsearch/logs \
 		/usr/share/elasticsearch/snapshots \
+		/usr/share/elasticsearch/config \
+		/usr/share/elasticsearch/config/scripts \
 	; do
 		chown -R elasticsearch:elasticsearch "$path"
 	done
