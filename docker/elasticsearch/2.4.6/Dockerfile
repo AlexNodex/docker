@@ -61,8 +61,6 @@ RUN set -ex; \
 		chown -R elasticsearch:elasticsearch "$path"; \
 	done; \
 	\
-	chown -R elasticsearch:elasticsearch /usr/share/elasticsearch
-	\
 # we shouldn't need much RAM to test --version (default is 2gb, which gets Jenkins in trouble sometimes)
 	if [ "${ELASTICSEARCH_VERSION%%.*}" -gt 1 ]; then \
 		elasticsearch --version; \
@@ -79,6 +77,8 @@ VOLUME /usr/share/elasticsearch/data
 
 COPY config/elasticsearch.yml /usr/share/elasticsearch/config
 COPY config/logging.yml /usr/share/elasticsearch/config
+
+RUN chown -R elasticsearch:elasticsearch /usr/share/elasticsearch
 
 #COPY config/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 
