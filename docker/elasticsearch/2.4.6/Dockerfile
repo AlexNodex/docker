@@ -61,6 +61,7 @@ RUN set -ex; \
 	done; \
 	\
 	chown -R elasticsearch:elasticsearch /usr/share/elasticsearch
+	\
 # we shouldn't need much RAM to test --version (default is 2gb, which gets Jenkins in trouble sometimes)
 	if [ "${ELASTICSEARCH_VERSION%%.*}" -gt 1 ]; then \
 		elasticsearch --version; \
