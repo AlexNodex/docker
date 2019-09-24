@@ -33,7 +33,7 @@ services:
       image: nodextechnology/elasticsearch:2.4.6-alpine-delete
       command: "elasticsearch -Des.cluster.name=recruitment -Des.node.master=true -Des.node.data=false -Des.path.repo=[\"/usr/share/elasticsearch/snapshots\"] -Des.http.max_content_length=1000mb -Des.script.engine.groovy.inline.aggs=on"
       environment:
-        - ES_HEAP_SIZE=16g
+        - ES_HEAP_SIZE=20g
       ports:
         - "127.0.0.1:18200:9200"
         - "127.0.0.1:18300:9300"
@@ -57,7 +57,7 @@ services:
         - "/home/elasticsearch:/usr/share/elasticsearch/data"
         - "/home/elasticsearch_snapshots/recruitment:/usr/share/elasticsearch/snapshots"
       environment:
-         - ES_HEAP_SIZE=12g
+         - ES_HEAP_SIZE=16g
       restart: always
   recruitment_node_2:
       ulimits:
@@ -76,7 +76,7 @@ services:
         - "/home/elasticsearch:/usr/share/elasticsearch/data"
         - "/home/elasticsearch_snapshots/recruitment:/usr/share/elasticsearch/snapshots"
       environment:
-         - ES_HEAP_SIZE=12g
+         - ES_HEAP_SIZE=16g
       restart: always
   solr:
       container_name: solr

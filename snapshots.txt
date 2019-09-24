@@ -1,7 +1,7 @@
 curl -XPUT 'http://localhost:9200/_snapshot/legacy_backup' -d '{
     "type": "fs",
     "settings": {
-        "location": "/storage/elasticsearch/9200/snapshots",
+        "location": "/usr/share/elasticsearch/snapshots",
         "compress": true
     }
 }'
@@ -9,7 +9,7 @@ curl -XPUT 'http://localhost:9200/_snapshot/legacy_backup' -d '{
 curl -XPUT 'http://localhost:18200/_snapshot/backup' -d '{
     "type": "fs",
     "settings": {
-        "location": "/storage/elasticsearch/18200/snapshots",
+        "location": "/usr/share/elasticsearch/snapshots",
         "compress": true
     }
 }'
@@ -17,7 +17,7 @@ curl -XPUT 'http://localhost:18200/_snapshot/backup' -d '{
 curl -XPUT 'http://localhost:19200/_snapshot/backup' -d '{
     "type": "fs",
     "settings": {
-        "location": "/storage/elasticsearch/19200/snapshots",
+        "location": "/usr/share/elasticsearch/snapshots",
         "compress": true
     }
 }'
@@ -104,3 +104,25 @@ rsync -r /storage/elasticsearch/18200/snapshots/* --rsh="ssh nodex" :/home/elast
 curl -XPOST 'http://localhost:18200/_all/_close'
 curl -XPOST 'http://localhost:18200/_snapshot/backup/snapshot/_restore?pretty'
 curl -XPOST 'http://localhost:18200/_all/_open'
+
+
+#!/usr/bin/env bash
+rm -rf /home/elasticsearch_snapshots/recruitment/*
+curl -XPUT 'http://localhost:18200/_snapshot/backup/snapshot?wait_for_completion=true&pretty=true'
+rsync -arogv /home/elasticsearch_snapshots/recruitment/*  --rsh='ssh nodex2' :/usr/share/elasticsearch/snapshots/recruitment/
+# then go to the remote machine
+ssh nodex2 << EOF
+    curl -XPOST 'http://localhost:18200/_all/_close'
+    curl -XPOST 'http://localhost:18200/_snapshot/backup/snapshot/_restore?pretty'
+    curl -XPOST 'http://localhost:18200/_all/_open'
+EOF
+
+
+
+curl -XPUT 'http://localhost:18200/_snapshot/backup' -d '{
+    "type": "fs",
+    "settings": {
+        "location": "/usr/share/elasticsearch/snapshots",
+        "compress": true
+    }
+}'
