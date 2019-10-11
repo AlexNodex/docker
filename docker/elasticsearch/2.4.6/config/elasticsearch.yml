@@ -3,3 +3,4 @@ path.repo: ["/usr/share/elasticsearch/snapshots"]
 bootstrap.mlockall: true
 http.max_content_length: 2000mb
 script.engine.groovy.inline.aggs: on
+script.inline: true
