@@ -11,7 +11,7 @@ services:
               hard: -1
       container_name: locations
       image: nodextechnology/elasticsearch:2.4.6-alpine-delete
-      command: "elasticsearch -Des.cluster.name=locations"
+      command: "elasticsearch -Des.cluster.name=locations -Des.http.max_content_length=1000mb"
       volumes:
         - "/home/elasticsearch_snapshots:/usr/share/elasticsearch/snapshots"
         - "/home/elasticsearch:/usr/share/elasticsearch/data"
