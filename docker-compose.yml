@@ -31,7 +31,7 @@ services:
               hard: -1
       container_name: recruitment_master
       image: nodextechnology/elasticsearch:2.4.6-alpine-delete
-      command: "elasticsearch -Des.cluster.name=recruitment -Des.node.master=true -Des.node.data=false -Des.path.repo=[\"/usr/share/elasticsearch/snapshots\"] -Des.http.max_content_length=1000mb -Des.script.engine.groovy.inline.aggs=on"
+      command: "elasticsearch -Des.cluster.name=recruitment -Des.node.master=true -Des.node.data=false -Des.path.repo=[\"/usr/share/elasticsearch/snapshots\"] -Des.http.max_content_length=1000mb -Des.script.engine.groovy.inline.aggs=on -Des.script.inline=true"
       environment:
         - ES_HEAP_SIZE=20g
       ports:
@@ -50,7 +50,7 @@ services:
               hard: -1
       container_name: recruitment1
       image: nodextechnology/elasticsearch:2.4.6-alpine-delete
-      command: "elasticsearch -Des.cluster.name=recruitment -Des.discovery.zen.ping.unicast.hosts=recruitment_master -Des.path.repo=[\"/usr/share/elasticsearch/snapshots\"] -Des.http.max_content_length=1000mb -Des.script.engine.groovy.inline.aggs=on"
+      command: "elasticsearch -Des.cluster.name=recruitment -Des.discovery.zen.ping.unicast.hosts=recruitment_master -Des.path.repo=[\"/usr/share/elasticsearch/snapshots\"] -Des.http.max_content_length=1000mb -Des.script.engine.groovy.inline.aggs=on -Des.script.inline=true"
       links:
         - recruitment_master
       volumes:
@@ -69,7 +69,7 @@ services:
               hard: -1
       container_name: recruitment2
       image: nodextechnology/elasticsearch:2.4.6-alpine-delete
-      command: "elasticsearch -Des.cluster.name=recruitment -Des.discovery.zen.ping.unicast.hosts=recruitment_master -Des.path.repo=[\"/usr/share/elasticsearch/snapshots\"] -Des.http.max_content_length=1000mb -Des.script.engine.groovy.inline.aggs=on"
+      command: "elasticsearch -Des.cluster.name=recruitment -Des.discovery.zen.ping.unicast.hosts=recruitment_master -Des.path.repo=[\"/usr/share/elasticsearch/snapshots\"] -Des.http.max_content_length=1000mb -Des.script.engine.groovy.inline.aggs=on -Des.script.inline=true"
       links:
         - recruitment_master
       volumes:
